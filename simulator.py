@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 #アダマールゲート
 H = np.matrix([[1/np.sqrt(2), 1/np.sqrt(2)], 
@@ -117,3 +118,19 @@ for num in qsimResult:
 print("probability:")
 for i in range(len(qsimResult)):
     print(f"{i:08b}: {np.abs(qsimResult[i])**2:.3f}")
+
+# 二進数表記
+binary_labels = [format(i, '06b') for i in range(len(qsimResult))]
+# 実部の取得
+real_parts = [num.real for num in qsimResult]
+# 棒グラフの色を設定
+colors = ['blue' if num >= 0 else 'red' for num in real_parts]
+# 棒グラフの描画
+plt.bar(binary_labels, real_parts, color=colors)
+# 軸ラベルの設定
+plt.xlabel('量子ビット')
+plt.ylabel('確率振幅')
+# グリッドの表示
+plt.grid(True)
+# グラフの表示
+plt.show()
